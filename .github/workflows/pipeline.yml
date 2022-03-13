@@ -26,7 +26,9 @@ jobs:
         run:  pip install flask pytest flask-wtf
 
       - name: Unit Test
-        run: python -m unittest -v test
+        run: 
+        coverage python -m pytest test.py
+        coverage xml app.py
 
       - name: Generate Report
         run: |
