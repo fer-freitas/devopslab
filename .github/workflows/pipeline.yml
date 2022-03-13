@@ -1,13 +1,3 @@
-Agora que já temos certeza que nossa aplicação roda no Docker criado por nós, precisamos ajustar a pipeline para que o Heroku não faça mais a criação da imagem do conteiner e sim use a nossa imagem.
-
-Isso irá simplificar o processo de deploy, pois será apenas subir nossa imagem, porém vai exigir que nosso processo de build faça a criação da imagem.
-
----
-
-###1. 
-Altere o arquivo pipeline.yml para o seguinte conteúdo:
-
-```
 # Nome do Workflow
 name: DevOpsLab Pipeline
 
@@ -31,7 +21,7 @@ jobs:
           python-version: '3.10'
 
       - name: Install Requirements
-        run:  pip install flask pytest flask-wtf 
+        run:  pip install flask pytest flask-wtf
 
       - name: Unit Test
         run: python -m unittest -v test
@@ -76,18 +66,3 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
-
-```
----
-
-###2. 
-Vamos fazer um novo commit em nossa Branch 05-Docker e na sequência fazer merge dela para a branch principal (main). 
-
----
-
-###3. 
-Após o commit faça o seguinte checklist:
-
-* Acompanhe a pipeline rodando
-* Vá no Heroku e observe como mudou o deploy
-* Verifique se a sua app está no ar ainda. 
